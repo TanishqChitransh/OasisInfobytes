@@ -1,0 +1,48 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Number_guessing {
+    private JButton Guess;
+    private JTextField myNumber;
+    private JTextField computerNumber;
+    private JTextField message;
+    private JPanel myPanel;
+    private int targetNumber;
+    public Number_guessing() {
+
+//        // Generate the target number
+//        targetNumber = generateRandomNumber();
+//        // Display the target number for testing purposes
+//        computerNumber.setText(Integer.toString(targetNumber));
+
+        Guess.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int myno = Integer.parseInt(myNumber.getText());
+
+                if (myno == targetNumber) {
+                    message.setText("You guessed the correct number!");
+                    // Generate a new target number for the next round
+                    targetNumber = generateRandomNumber();
+                    // Display the new target number for testing purposes
+                    computerNumber.setText(Integer.toString(targetNumber));
+                } else if (myno > targetNumber) {
+                    message.setText("Number guessed is higher than the generated number");
+                } else {
+                    message.setText("Number guessed is lower than the generated number");
+                }
+            }
+        });
+    }
+    private int generateRandomNumber() {
+        return (int) (Math.random() * 100) + 1;
+    }
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Guessing Game");
+        frame.setContentPane(new Number_guessing().myPanel);
+        frame.setSize(450, 350);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    }
+}
